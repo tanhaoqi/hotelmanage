@@ -1,0 +1,187 @@
+<!Doctype html>
+<html>
+<head>
+    <title>宾馆管理系统</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <script src="./js/jquery.min.js"></script>
+    <script src="src/js/home.js"></script>
+    <script src="./layui/layui.js"></script>
+
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="./css/style.css" media="all">
+
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">宾馆管理系统</div>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item" id="user_name"></li>
+            <li class="layui-nav-item"><a href="/custom-logout">退出</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item">
+                    <a href="javascript:void(0)">
+                        <i class="layui-icon layui-icon-home">&nbsp;客房</i>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:void(0)" onclick="jump('roomStd')">客房标准</a></dd>
+                        <dd><a href="javascript:void(0)" onclick="jump('roomInfo')">房间信息</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:void(0)" onclick="jump('order')">
+                        <i class="layui-icon layui-icon-form">&nbsp;订单</i>
+                    </a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:void(0)">
+                        <i class="layui-icon layui-icon-username">&nbsp;员工</i>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <!--<dd><a href="javascript:void(0)" onclick="jump('employeeEvent')">员工事务</a></dd>-->
+                        <dd><a href="javascript:void(0)" onclick="jump('employeeInfo')">员工信息</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:void(0)" onclick="jump('event')">
+                        <i class="layui-icon layui-icon-notice">&nbsp;事务</i>
+                    </a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:void(0)" onclick="jump('garage')">
+                        <i class="layui-icon layui-icon-note">&nbsp;停车</i>
+                    </a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:void(0)" onclick="jump('finance')">
+                        <i class="layui-icon layui-icon-rmb">&nbsp;财务</i>
+                    </a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:void(0)">
+                        <i class="layui-icon layui-icon-log">&nbsp;历史</i>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:void(0)" onclick="jump('orderHistory')">订单历史</a></dd>
+                        <dd><a href="javascript:void(0)" onclick="jump('garageHistory')">车库历史</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:void(0)" onclick="jump('member')">
+                        <i class="layui-icon layui-icon-rate">&nbsp;会员</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <iframe id="myFrame" width="100%" height="100%" scrolling="no"></iframe>
+    </div>
+
+    <div class="layui-footer" style="text-align: right">
+        <!-- 底部固定区域 -->
+        HMS系统 BETA
+    </div>
+</div>
+
+<script>
+    // layui 初始化
+    layui.use('element', function () {
+        var element = layui.element;
+    });
+
+    function jump(type) {
+        $("#myFrame").attr("src", "./src/html/" + type + ".html");
+    }
+
+    $(function () {
+        $.get(home.urls.user.get, {}, function (result) {
+            console.log(result);
+            console.log(result.data);
+            $("#user_name")[0].innerHTML = "<a href=\"javascript:void(0)\" onclick=\"edit()\">" + result.data.employname + "</a>";
+        });
+    });
+
+    function edit() {
+        $.get(home.urls.user.get, {}, function (result) {
+            console.log(result);
+            var res = result.data;
+            home.vars.userNo = res.employno;
+            layui.use('layer', function () {
+                layer.open({
+                    type: 1,
+                    title: res.employname,
+                    content:
+                        "<div id='addModal' class='popup'>" +
+                        "<p>工号：<input type='number' id='employee-no' disabled='disabled' value='" + res.employno + "'/></p>" +
+                        "<p>姓名：<input type='text' id='employee-name' disabled='disabled' value='" + res.employname + "'/></p>" +
+                        "<p>性别：<input type='text' id='employee-sex' disabled='disabled' value='" + home.vars.gender[res.employsex] + "'/></p>"+
+                        "<p>年龄：<input type='number' id='employee-age' disabled='disabled' value='" + res.employage + "'/></p>" +
+                        "<p>职位：<input type='text' id='employee-position' disabled='disabled' value='" + home.vars.position[res.employposition] + "'/></p>"+
+                        "<p>权限：<input type='text' id='employee-authority' disabled='disabled' value='" + home.vars.authority[res.employauthority] + "'/></p>"+
+                        "<p>工资：<input type='number' id='employee-salary' disabled='disabled' value='" + res.employpaymentpermonth + "'/></p>" +
+                        "<p>时段：<input type='text' id='employee-time' disabled='disabled' value='" + home.vars.workTime[res.employworktime] + "'/></p>"+
+                        // "<p>账号：<input type='text' id='employee-username' disabled='disabled' value='" + res.username + "'/></p>" +
+                        // "<p>密码：<input type='text' id='employee-password' placeholder='" +"输入并保存以改变密码"+ "'/></p>" +
+                        "</div>",
+                    area: ['350px', '500px'],
+                    btn: ['确认'],
+                    offset: ['18%', '41%'],
+                    // yes: function (index) {
+                    //     var employeeNo = res.employno;
+                    //     var name = res.employname;
+                    //     var sex = res.employsex;
+                    //     var age = res.employage;
+                    //     var position = res.employposition;
+                    //     var authority = res.employauthority;
+                    //     var salary = res.employpaymentpermonth;
+                    //     var time = res.employworktime;
+                    //     var username = res.username;
+                    //     var password = $('#employee-password').val();
+                    //     $.post(home.urls.employee.update + employeeNo, {
+                    //         // employno: employeeNo,
+                    //         employname: name,
+                    //         employsex: sex,
+                    //         employage: age,
+                    //         employposition: position,
+                    //         employauthority: authority,
+                    //         employpaymentpermonth: salary,
+                    //         employworktime: time,
+                    //         username: username,
+                    //         password: password
+                    //     }, function (result) {
+                    //         console.log(result);
+                    //         layer.msg(result.msg, {
+                    //             offset: ['auto', 'auto'],
+                    //             time: 700
+                    //         });
+                    //         if (result.code === 0) {
+                    //             var time = setTimeout(function () {
+                    //                 employeeInfo.init();
+                    //                 clearTimeout(time);
+                    //             }, 500)
+                    //         }
+                    //         layer.close(index)
+                    //     })
+                    // },
+                    yes: function (index) {
+                        layer.close(index)
+                    }
+                });
+            })
+        });
+    }
+</script>
+
+</body>
+</html>

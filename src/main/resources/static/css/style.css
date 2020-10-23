@@ -1,0 +1,172 @@
+.align_middle_img {
+    position: relative;
+    top: 50%;
+    text-align: center;
+    align-self: center;
+    display: table-cell;
+}
+
+.block-left {
+    width: 50%;
+    float: left;
+    text-align: left;
+    font-size: 18px;
+}
+
+.block-right {
+    width: 50%;
+    float: left;
+    text-align: right;
+}
+
+.block-login {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    top: 50%;
+}
+
+iframe {
+    border: 0;
+}
+
+.display-image {
+    position: relative;
+    top: 15%;
+    text-align: center;
+}
+
+.display-table table {
+    width: 70%;
+    border-collapse: collapse;
+    margin: 40px auto auto;
+}
+
+.display-table tr, td {
+    font-size: 12px;
+    text-align: center;
+}
+
+.display-table-large table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 40px auto auto;
+}
+
+.display-table-large tr, td {
+    font-size: 12px;
+    text-align: center;
+}
+
+.display-table-garage table {
+    border-collapse: collapse;
+    margin: 40px auto auto;
+}
+
+.display-table-garage tr, td {
+    font-size: 12px;
+    text-align: center;
+}
+
+.frame-room-id {
+    position: relative;
+    top: 50%;
+    text-align: center;
+    align-self: center;
+    display: table-cell;
+}
+
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.input-id {
+    width: 145px;
+    overflow: hidden;
+}
+
+.layui-layer-content {
+    /*height: 80px !important;*/
+}
+
+.layui-table th {
+    text-align: center;
+    font-weight: bold;
+}
+
+.pop-table {
+    position: relative;
+    border-collapse: collapse;
+    margin: 40px auto auto;
+}
+
+.pop-table th {
+    padding: 9px 15px 9px 15px;
+    font-size: 16px;
+}
+
+.pop-table td {
+    padding: 9px 15px 9px 15px;
+    font-size: 12px;
+}
+
+.popup {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.popup input {
+    height: 30px;
+}
+
+.popup select {
+    width: 174px;
+    height: 30px;
+}
+
+/*tr, td {*/
+/*font-size: 12px;*/
+/*text-align: center;*/
+/*padding: 5px 0px 5px 0px;*/
+/*}*/
+
+p {
+    padding: 5px 0px 5px 0px;
+}
+
+.search-bar {
+    width: 120px;
+    height: 27px;
+    border-width: 0 0 1px 0;
+    background-color: #f2f2f2;
+    border-color: #4E5465;
+}
+
+.search-bar-date {
+    width: 40px;
+    height: 27px;
+    border-width: 0 0 1px 0;
+    background-color: #f2f2f2;
+    border-color: #4E5465;
+    text-align: right;
+}
+
+.select-bar {
+    width: 80px;
+    height: 25px;
+    border-width: 0 0 0 0;
+    background-color: #f2f2f2;
+    border-color: #4E5465;
+}
+
+.table-garage td {
+    width: 60px;
+    height: 90px;
+    padding: 0 5px 0 5px;
+}
+
+.table-garage button {
+    width: 80px;
+    height: 80px;
+    font-size: 30px;
+}
